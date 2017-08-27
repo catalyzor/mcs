@@ -30,7 +30,7 @@ public class UserController {
         if(cd == null){
             map.put("code", code);
         }else{
-            cd.set
+
         }
     }
 
