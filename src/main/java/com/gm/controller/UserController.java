@@ -24,24 +24,41 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping(value = "call/{code}")
+    @GetMapping(value = "/call/{code}")
     public String showCall(@PathVariable("code") String code, Map<String, Object> map){
         Code cd = codeRepository.findByCode(code);
+        String page = null;
         if(cd == null){
             map.put("code", code);
+            page = "showReg";
         }else{
-
+            map.put("code", cd);
+            map.put("phone", "000");
+            page = "showCall";
         }
+        return page;
     }
 
-    @PostMapping("users")
-    public User addUser(@RequestBody User user){
+    @PostMapping("/users")
+    public String addUser(@RequestParam String inputPhone, @RequestParam String inputCarNumber,
+                          @RequestParam String inputCode, Map<String, Object> map){
+        User user = new User();
+        user.setPhone(inputPhone);
         user.setId(UUID.randomUUID().toString());
         user.setStatus(0);
-        return userRepository.save(user);
+        Code cd = new Code();
+        cd.setCode(inputCode);
+        cd.setCarNumber(inputCarNumber);
+        cd.setStatus(0);
+        cd.setId(UUID.randomUUID().toString());
+        codeRepository.save(cd);
+        userRepository.save(user);
+        map.put("code", cd);
+        map.put("phone", "000");
+        return "showCall";
     }
 
-    @GetMapping("users")
+    @GetMapping("/users")
     public List<User> findAll(){
         return userRepository.findAll();
     }

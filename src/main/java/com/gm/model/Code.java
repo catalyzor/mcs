@@ -11,7 +11,6 @@ import java.util.Date;
 @Entity
 public class Code {
     @Id
-    @GeneratedValue
     private String id;
     private String code;
     private String carNumber;
