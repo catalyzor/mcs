@@ -1,9 +1,13 @@
 package com.gm.controller;
 
 import com.gm.dao.CodeRepository;
+import com.gm.dao.PhoneRepository;
 import com.gm.dao.UserRepository;
 import com.gm.model.Code;
+import com.gm.model.Phone;
+import com.gm.model.SafePhoneNumber;
 import com.gm.model.User;
+import com.gm.util.SafePhoneNumberManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Controller;
@@ -23,6 +27,11 @@ public class UserController {
     private CodeRepository codeRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PhoneRepository phoneRepository;
+
+    @Autowired
+    private SafePhoneNumberManager safePhoneNumberManager;
 
     @GetMapping(value = "/call/{code}")
     public String showCall(@PathVariable("code") String code, Map<String, Object> map){
@@ -36,6 +45,8 @@ public class UserController {
             map.put("phone", "000");
             page = "showCall";
         }
+        SafePhoneNumber safePhoneNumber = safePhoneNumberManager.getUseableSafePhoneNumber("18210882865");
+        safePhoneNumberManager.bindNumber(safePhoneNumber.getBindPhone(), safePhoneNumber.getNumber());
         return page;
     }
 
@@ -43,7 +54,10 @@ public class UserController {
     public String addUser(@RequestParam String inputPhone, @RequestParam String inputCarNumber,
                           @RequestParam String inputCode, Map<String, Object> map){
         User user = new User();
-        user.setPhone(inputPhone);
+        Phone phone = new Phone();
+        phone.setId(UUID.randomUUID().toString());
+        phone.setPhone(inputPhone);
+        user.setPhone(phone);
         user.setId(UUID.randomUUID().toString());
         user.setStatus(0);
         Code cd = new Code();

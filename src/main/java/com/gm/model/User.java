@@ -11,7 +11,8 @@ import java.util.List;
 public class User {
     @Id
     private String id;
-    private String phone;
+    @OneToOne
+    private Phone phone;
     private String email;
     private Integer status;
     private Date time;
@@ -21,20 +22,28 @@ public class User {
     @OneToMany
     private List<Code> codes;
 
+    public Phone getPhone() {
+        return phone;
+    }
+
+    public void setPhone(Phone phone) {
+        this.phone = phone;
+    }
+
+    public List<Code> getCodes() {
+        return codes;
+    }
+
+    public void setCodes(List<Code> codes) {
+        this.codes = codes;
+    }
+
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getEmail() {

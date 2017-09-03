@@ -3,6 +3,7 @@ package com.gm.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Date;
 
 /**
@@ -16,6 +17,8 @@ public class Code {
     private String carNumber;
     private int status;
     private Date expiredTime;
+    @ManyToOne
+    private User user;
 
     public String getId() {
         return id;

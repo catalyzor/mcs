@@ -17,6 +17,7 @@ public class Order {
     private String orderNum;
     private Long price;
     private String code;
+    private String carNumber;
     private String type;
     private String status;
     private Date time;
