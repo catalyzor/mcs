@@ -9,10 +9,11 @@ import com.gm.model.SafePhoneNumber;
 import com.gm.model.User;
 import com.gm.util.SafePhoneNumberManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -35,22 +36,40 @@ public class UserController {
 
     @GetMapping(value = "/call/{code}")
     public String showCall(@PathVariable("code") String code, Map<String, Object> map){
-        Code cd = codeRepository.findByCode(code);
+        Code cd = codeRepository.findFirstByCode(code);
         String page = null;
         if(cd == null){
             map.put("code", code);
             page = "showReg";
         }else{
             map.put("code", cd);
-            map.put("phone", "000");
+            map.put("phone", "******");
             page = "showCall";
         }
-        SafePhoneNumber safePhoneNumber = safePhoneNumberManager.getUseableSafePhoneNumber("18210882865");
-        safePhoneNumberManager.bindNumber(safePhoneNumber.getBindPhone(), safePhoneNumber.getNumber());
+//        SafePhoneNumber safePhoneNumber = safePhoneNumberManager.getUseableSafePhoneNumber("18210882865");
+//        safePhoneNumberManager.bindNumber(safePhoneNumber.getBindPhone(), safePhoneNumber.getNumber());
         return page;
     }
 
+    @PostMapping(value = "/show/vphone/{code}")
+    @ResponseBody
+    public String showVphone(@PathVariable String code){
+        Code cd = codeRepository.findFirstByCode(code);
+        if(cd != null){
+            SafePhoneNumber safePhoneNumber = safePhoneNumberManager.getUseableSafePhoneNumber(cd.getUser().getPhone().getPhone());
+            boolean status = safePhoneNumberManager.bindNumber(safePhoneNumber.getBindPhone(), safePhoneNumber.getNumber());
+            if(!status){
+                if(safePhoneNumberManager.unBindNumber(safePhoneNumber.getNumber())){
+                    status = safePhoneNumberManager.bindNumber(safePhoneNumber.getBindPhone(), safePhoneNumber.getNumber());
+                }
+            }
+            if(status) return safePhoneNumber.getNumber();
+        }
+        return "none";
+    }
+
     @PostMapping("/users")
+    @Transactional
     public String addUser(@RequestParam String inputPhone, @RequestParam String inputCarNumber,
                           @RequestParam String inputCode, Map<String, Object> map){
         User user = new User();
@@ -65,7 +84,10 @@ public class UserController {
         cd.setCarNumber(inputCarNumber);
         cd.setStatus(0);
         cd.setId(UUID.randomUUID().toString());
-        codeRepository.save(cd);
+        cd.setUser(user);
+        user.setCodes(Arrays.asList(cd));
+//        phoneRepository.save(phone);
+//        codeRepository.save(cd);
         userRepository.save(user);
         map.put("code", cd);
         map.put("phone", "000");

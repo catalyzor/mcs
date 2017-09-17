@@ -11,7 +11,7 @@ import java.util.List;
 public class User {
     @Id
     private String id;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Phone phone;
     private String email;
     private Integer status;
@@ -19,7 +19,7 @@ public class User {
     private String name;
     private Integer sex;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Code> codes;
 
     public Phone getPhone() {

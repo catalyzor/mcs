@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface CodeRepository extends JpaRepository<Code, String> {
 
     public Code findById(String id);
-    public Code findByCode(String code);
+    public Code findFirstByCode(String code);
 }

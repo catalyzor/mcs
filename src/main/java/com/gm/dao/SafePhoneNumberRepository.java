@@ -8,4 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface SafePhoneNumberRepository extends JpaRepository<SafePhoneNumber, String> {
     public SafePhoneNumber findFirstByOrderByBindTimeAsc();
+    public SafePhoneNumber findFirstByBindPhone(String phone);
 }
