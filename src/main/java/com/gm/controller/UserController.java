@@ -40,11 +40,11 @@ public class UserController {
         String page = null;
         if(cd == null){
             map.put("code", code);
-            page = "showReg";
+            page = "login";
         }else{
             map.put("code", cd);
             map.put("phone", "******");
-            page = "showCall";
+            page = "contactus";
         }
 //        SafePhoneNumber safePhoneNumber = safePhoneNumberManager.getUseableSafePhoneNumber("18210882865");
 //        safePhoneNumberManager.bindNumber(safePhoneNumber.getBindPhone(), safePhoneNumber.getNumber());
@@ -72,6 +72,14 @@ public class UserController {
     @Transactional
     public String addUser(@RequestParam String inputPhone, @RequestParam String inputCarNumber,
                           @RequestParam String inputCode, Map<String, Object> map){
+        Code code = codeRepository.findFirstByCode(inputCode);
+        if(code != null && code.getCarNumber() != null){
+            map.put("inputPhone", inputPhone);
+            map.put("inputCarNumber", inputCarNumber);
+            map.put("code", inputCode);
+            map.put("error", "此号码已被注册");
+            return "login";
+        }
         User user = new User();
         Phone phone = new Phone();
         phone.setId(UUID.randomUUID().toString());
@@ -91,7 +99,7 @@ public class UserController {
         userRepository.save(user);
         map.put("code", cd);
         map.put("phone", "000");
-        return "showCall";
+        return "contactus";
     }
 
     @GetMapping("/users")

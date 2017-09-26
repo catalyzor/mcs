@@ -1,0 +1,125 @@
+body {
+    background: #ecebeb;
+}
+
+.head {
+    height: 2rem;
+    width: 100%;
+    position: relative;
+    border-bottom: 1px solid #eee;
+    background: #ff9600;
+    color: #fff;
+    font-size: 1.25em;
+}
+
+.head a {
+    font-size: 1.2em;
+    position: absolute;
+    left: 0.652rem;
+    top: 0.6rem;
+    width: 0.5rem;
+    height: 1.1875rem;
+    background: url('./../img/icon_03.png') no-repeat;
+    background-size: 100%;
+}
+
+.head h4 {
+    text-align: center;
+    line-height: 2rem;
+    width: 100%;
+}
+
+.tell-wrapper {
+    margin-top: 3rem;
+}
+
+.plate-number {
+    text-align: center;
+    line-height: .8rem;
+}
+
+.plate-number h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.plate-number p {
+    font-size: 1em;
+}
+
+.call-contain {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    padding-bottom: 1rem;
+}
+
+.call-wrap {
+    width: 6rem;
+    height: 6rem;
+    background: #ff9600;
+    border-radius: 50%;
+    color: #fff;
+    margin: 2.5rem auto 0;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 0 5px 2px #ccc;
+}
+
+.call-wrap a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.call-wrap .icon {
+    width: 2.1rem;
+    height: 1.875rem;
+    display: block;
+    background: url('./../img/bg_01_03.png') no-repeat;
+    background-size: 100%;
+    margin: 1.2rem auto 0;
+}
+
+.call-wrap h5 {
+    font-size: 1.5em;
+    line-height: 1.8rem;
+    color: #fff;
+}
+
+.link-wrap {
+    margin-top: 2rem;
+    border-top: 1px solid #ddd;
+    background: #fff;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: #fff;
+    padding-bottom: 2rem;
+    ;
+}
+
+.link-wrap .link {
+    padding: 0 .5rem;
+    height: 2rem;
+    line-height: 2rem;
+    color: #ff9600;
+    font-size: 1.25em;
+    border-bottom: 1px solid #ff9600;
+}
+
+.link-detail {
+    padding: 1rem 0 2rem .7rem;
+    line-height: 1rem;
+    background-size: 100%;
+    background: url('./../img/bg_03.png') right center no-repeat;
+    height: 6rem;
+}
+
+.link-detail h2 {
+    font-size: 1.15em;
+    color: #ff9600;
+}

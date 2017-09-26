@@ -1,0 +1,62 @@
+.head {
+    height: 2rem;
+    width: 100%;
+    position: relative;
+    border-bottom: 1px solid #eee;
+    background: #ff9600;
+    color: #fff;
+    font-size: 1.25em;
+}
+
+.head a {
+    font-size: 1.2em;
+    position: absolute;
+    left: 0.652rem;
+    top: 0.6rem;
+    width: 0.5rem;
+    height: 1.1875rem;
+    background: url('./../img/icon_03.png') no-repeat;
+    background-size: 100%;
+}
+
+.head h4 {
+    text-align: center;
+    line-height: 2rem;
+    width: 100%;
+}
+
+.section {
+    padding: .5rem;
+}
+
+.member {
+    width: 100%;
+    margin: .2rem auto 0;
+}
+
+.member img {
+    width: 100%;
+}
+
+.member-price {
+    width: 100%;
+    padding: 0 .35rem;
+    margin: 1rem auto 0;
+}
+
+.member-price img {
+    width: 100%;
+}
+
+.state-wrap {
+    padding: .5rem;
+    background: #f1f1f1;
+    line-height: 1rem;
+}
+
+.state-wrap h3 {
+    font-size: 1.25em;
+    color: #ff9600;
+    margin-bottom: .5rem;
+    ;
+}

@@ -1,0 +1,92 @@
+body {
+    background: #ecebeb;
+}
+
+.head {
+    height: 2rem;
+    width: 100%;
+    position: relative;
+    border-bottom: 1px solid #eee;
+    background: #ff9600;
+    color: #fff;
+    font-size: 1.25em;
+}
+
+.head a {
+    font-size: 1.2em;
+    position: absolute;
+    left: 0.652rem;
+    top: 0.6rem;
+    width: 0.5rem;
+    height: 1.1875rem;
+    background: url('./../img/icon_03.png') no-repeat;
+    background-size: 100%;
+}
+
+.head h4 {
+    text-align: center;
+    line-height: 2rem;
+    width: 100%;
+}
+
+.total-price {
+    height: 2.1825rem;
+    padding: 0 .7rem;
+    line-height: 2.1825rem;
+    background: #fff;
+    color: #ff9600;
+    font-size: 1.25em;
+    border-bottom: 1px solid #ddd;
+}
+
+.payment {
+    overflow: hidden;
+}
+
+.payment ul li {
+    padding: 0 .7rem;
+    height: 4rem;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    background: #fff;
+    padding-top: 1rem;
+    margin-top: .55rem;
+}
+
+.payment ul li a {
+    display: block;
+    display: -webkit-box;
+    display: box;
+}
+
+.payment ul li a .title {
+    width: 2rem;
+}
+
+.payment ul li a .pay-right {
+    padding-top: .2rem;
+    box-flex: 1;
+    margin-left: 1rem;
+    line-height: .8rem;
+}
+
+.payment ul li a .pay-right h3 {
+    font-size: 1.3em;
+}
+
+.btn-payment {
+    width: 70%;
+    height: 2rem;
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    margin-left: -35%;
+    text-align: center;
+    color: #fff;
+    background: #ff9600;
+    border: none;
+    outline: none;
+    border-radius: 1.31rem;
+    font-size: 16px;
+    box-shadow: 2px 2px 2px #aaa;
+}
