@@ -16,15 +16,17 @@
         <a href="javascript:;"></a>
         <h4>收费标准</h4>
     </header>
+    <form id="fm" action="/orders" method="post">
+        <input type="hidden" name="productNumber" id="productNumber" value=""/>
     <section class="section">
         <div class="member">
             <img src="./img/fee_01.png" alt="">
         </div>
         <div class="member-price">
-            <img src="./img/fee_02.png" alt="">
+            <img src="./img/fee_02.png" alt="" onclick="doPost('1')">
         </div>
         <div class="member-price">
-            <img src="./img/fee_03.png" alt="">
+            <img src="./img/fee_03.png" alt="" onclick="doPost('2')">
         </div>
         <div class="member-price">
             <div class="state-wrap">
@@ -39,6 +41,7 @@
 
 
     </section>
+    </form>
 
     <script>
         function fontSizeRoot() { //动态计算字体
@@ -54,7 +57,28 @@
         window.onresize = function() {
             fontSizeRoot();
         };
+
+        function doPost(type) {
+//            $.post({
+//                url: '/orders',
+//                type: 'post',
+//                data: 'productNumber=' + type,
+//                success: function (data, status) {
+//                    console.log(data);
+//                    window.location = data;
+//                },
+//                fail: function (err, status) {
+//                    console.log(err)
+//                }
+//            })
+            console.log(type);
+            $('#productNumber').value = type;
+            console.log($('#productNumber').val());
+            $('#fm').submit();
+        }
     </script>
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
 </body>
 
 </html>

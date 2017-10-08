@@ -1,22 +1,20 @@
 package com.gm.controller;
 
 import com.gm.dao.CodeRepository;
+import com.gm.dao.OrderRepository;
 import com.gm.dao.PhoneRepository;
 import com.gm.dao.UserRepository;
-import com.gm.model.Code;
-import com.gm.model.Phone;
-import com.gm.model.SafePhoneNumber;
-import com.gm.model.User;
+import com.gm.model.*;
 import com.gm.util.SafePhoneNumberManager;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by michael on 8/27/17.
@@ -30,9 +28,14 @@ public class UserController {
     private UserRepository userRepository;
     @Autowired
     private PhoneRepository phoneRepository;
+    @Autowired
+    private OrderRepository orderRepository;
+
 
     @Autowired
     private SafePhoneNumberManager safePhoneNumberManager;
+
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
 
     @GetMapping(value = "/call/{code}")
     public String showCall(@PathVariable("code") String code, Map<String, Object> map){
@@ -71,7 +74,7 @@ public class UserController {
     @PostMapping("/users")
     @Transactional
     public String addUser(@RequestParam String inputPhone, @RequestParam String inputCarNumber,
-                          @RequestParam String inputCode, Map<String, Object> map){
+                          @RequestParam String inputCode, Map<String, Object> map, HttpSession session){
         Code code = codeRepository.findFirstByCode(inputCode);
         if(code != null && code.getCarNumber() != null){
             map.put("inputPhone", inputPhone);
@@ -99,7 +102,51 @@ public class UserController {
         userRepository.save(user);
         map.put("code", cd);
         map.put("phone", "000");
-        return "contactus";
+        session.setAttribute("code", cd);
+        return "fees";
+    }
+
+    @PostMapping("/orders")
+    public String createOrder(String productNumber, Map<String, Object> map, HttpSession session){
+        Code cd = (Code) session.getAttribute("code");
+        if(cd != null && StringUtils.isNotEmpty(productNumber)){
+            Order order = new Order();
+            order.setId(UUID.randomUUID().toString());
+            order.setOrderNum("CODE" + cd.getCode() + simpleDateFormat.format(Calendar.getInstance().getTime()));
+            order.setCode(cd.getCode());
+            order.setCarNumber(cd.getCarNumber());
+            order.setStatus("0");
+            order.setPayStatus("0");
+            order.setProductNumber(productNumber);
+            order.setTime(Calendar.getInstance().getTime());
+            if("1".equals(productNumber)){
+                order.setProductNumber("一年");
+                order.setPrice(398L);
+            }else if("2".equals(productNumber)){
+                order.setProductName("永久");
+                order.setPrice(998L);
+            }
+            order = orderRepository.save(order);
+            session.setAttribute("order", order);
+            return "payment";
+        }else{
+            map.put("error","绑定失败");
+            return "fees";
+        }
+    }
+
+    @PostMapping("/pay")
+    @ResponseBody
+    public String doPay(@RequestParam String type, Map<String, Object> map, HttpSession session){
+
+        Order order = (Order) session.getAttribute("order");
+        if(order != null && StringUtils.isNotEmpty(type)){
+            order.setType(type);
+            order = orderRepository.save(order);
+
+        }
+
+        return "test";
     }
 
     @GetMapping("/users")

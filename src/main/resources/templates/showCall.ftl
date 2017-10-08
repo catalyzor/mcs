@@ -20,7 +20,7 @@
                     车主电话
                 </dt>
                 <dd>
-                    <a id="phone" href="tel:${phone}">******</a><button onclick="showCall()">显示电话</button>
+                    <a id="phone" href="tel:${phone}">******</a><button onclick="showCall()">拨打电话</button>
                 </dd>
 
             </dl>
