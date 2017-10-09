@@ -17,7 +17,7 @@
         <h4>收费标准</h4>
     </header>
     <form id="fm" action="/orders" method="post">
-        <input type="hidden" name="productNumber" id="productNumber" value=""/>
+        <input type="hidden" name="productNumber" id="productNumber" value="1"/>
     <section class="section">
         <div class="member">
             <img src="./img/fee_01.png" alt="">

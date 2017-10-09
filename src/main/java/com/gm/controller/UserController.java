@@ -107,7 +107,7 @@ public class UserController {
     }
 
     @PostMapping("/orders")
-    public String createOrder(String productNumber, Map<String, Object> map, HttpSession session){
+    public String createOrder(@RequestParam("productNumber") String productNumber, Map<String, Object> map, HttpSession session){
         Code cd = (Code) session.getAttribute("code");
         if(cd != null && StringUtils.isNotEmpty(productNumber)){
             Order order = new Order();
@@ -128,6 +128,7 @@ public class UserController {
             }
             order = orderRepository.save(order);
             session.setAttribute("order", order);
+            map.put("price", order.getPrice()/100D);
             return "payment";
         }else{
             map.put("error","绑定失败");

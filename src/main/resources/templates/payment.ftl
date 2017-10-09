@@ -17,7 +17,7 @@
         <h4>选择支付方式</h4>
     </header>
     <div class="total-price">
-        <h3>订单总金额：￥<span>20</span></h3>
+        <h3>订单总金额：￥<span>${price}</span></h3>
     </div>
     <div class="payment">
         <ul>
